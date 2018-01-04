@@ -1,0 +1,11 @@
+﻿#=====================================================================
+#
+#  Quran Translation
+#  Name: مکارم شیرازی
+#  Translator: Naser Makarem Shirazi
+#  Language: Persian
+#  ID: fa.makarem
+#  Last Update: August 09, 2014
+#  Source: ME
+#
+#=====================================================================

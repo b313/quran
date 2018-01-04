@@ -1,0 +1,161 @@
+﻿<Window x:Class="Quran.Engine.AudioMapper"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="AudioMapper" WindowState="Maximized" PreviewKeyDown="Window_PreviewKeyDown" Width="1002.4">
+        <Window.Resources>
+            <Style TargetType="{x:Type TextBlock}">
+                <Setter Property="FontFamily" Value="KFGQPC Uthmanic Script HAFS" />
+            </Style>
+        </Window.Resources>
+        <Window.CommandBindings>
+            <CommandBinding Command="ApplicationCommands.Open" CanExecute="Open_CanExecute" Executed="Open_Executed" />
+            <CommandBinding Command="MediaCommands.Play" CanExecute="Play_CanExecute" Executed="Play_Executed" />
+            <CommandBinding Command="MediaCommands.Pause" CanExecute="Pause_CanExecute" Executed="Pause_Executed" />
+            <CommandBinding Command="MediaCommands.Stop" CanExecute="Stop_CanExecute" Executed="Stop_Executed" />
+        </Window.CommandBindings>
+
+    <Grid MouseWheel="Grid_MouseWheel">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        
+        <TextBlock x:Name="suraTextBlock" Grid.Row="0"   TextAlignment="Center" FontSize="30" ></TextBlock>
+        <TextBlock x:Name="qariTextBlock" Grid.Row="1"   TextAlignment="Center" FontSize="24" ></TextBlock>
+
+        <ToolBar Grid.Row="2">
+            <Button Command="ApplicationCommands.Open">
+                Open
+            </Button>
+            <Separator />
+            <Button Command="MediaCommands.Play">
+                Play
+            </Button>
+            <Button Command="MediaCommands.Pause">
+                Pause
+            </Button>
+            <Button Command="MediaCommands.Stop">
+                Stop
+            </Button>
+            <Separator />
+            <Button x:Name="saveButton" Click="saveButton_Click">
+                Save
+            </Button>
+            <Separator />
+            <Button x:Name="verseByVerseLoad" Click="verseByVerseLoad_Click">
+                From Verse By Verse
+            </Button>
+
+        </ToolBar>
+
+        <MediaElement Name="mePlayer" Grid.Row="3" LoadedBehavior="Manual" Stretch="None" />
+
+        <ListBox x:Name="listBox" Grid.Row="4" FontFamily="KFGQPC Uthmanic Script HAFS" FontSize="22" ScrollViewer.HorizontalScrollBarVisibility="Disabled" FlowDirection="RightToLeft"  MouseDoubleClick="listBox_MouseDoubleClick"   >
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid Name="ListBoxGrid">
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <ToolTipService.ToolTip>
+                            <StackPanel>
+                                <TextBlock Text="{Binding Path=SliceID}"/>
+                            </StackPanel>
+                        </ToolTipService.ToolTip>
+                        <TextBlock Grid.Column="0" Width="30" FontFamily="Arial" FontSize="14"  VerticalAlignment="Center"  Text="{Binding SliceIndex}" />
+                        <TextBlock Grid.Column="1" Width="100" FontFamily="Arial" FontSize="16" VerticalAlignment="Center" Foreground="LimeGreen"  Text="{Binding Time, NotifyOnSourceUpdated=True,BindsDirectlyToSource=True}" />
+                        <TextBlock Grid.Column="2" Width="50" FontFamily="Calibri" FontSize="24" VerticalAlignment="Center" Foreground="OrangeRed"  Text="{Binding SliceHint, NotifyOnSourceUpdated=True,BindsDirectlyToSource=True}" />
+                        <TextBlock Grid.Column="3" Text="{Binding Slice}" TextWrapping="Wrap" />
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <StatusBar Grid.Row="5" Padding="100,0,0,0">
+            <StatusBarItem Grid.Column="1" FontSize="9">
+                <ComboBox x:Name="resyncComboBox" SelectedIndex="0" >
+                    <ComboBoxItem>100 ms</ComboBoxItem>
+                    <ComboBoxItem>250 ms</ComboBoxItem>
+                    <ComboBoxItem>500 ms</ComboBoxItem>
+                    <ComboBoxItem>1000 ms</ComboBoxItem>
+                </ComboBox>
+            </StatusBarItem>
+            <StatusBarItem Grid.Column="2"  >
+                <Button Name="resyncBackButton" Padding="5,2" Click="resyncBackButton_Click">-</Button>
+            </StatusBarItem>
+            <StatusBarItem Grid.Column="3" >
+                <Button Name="resyncForwardButton" Padding="5,2" Click="resyncForwardButton_Click">+</Button>
+            </StatusBarItem>
+            <StatusBarItem Grid.Column="4">
+                <Button x:Name="breakPointButton" Padding="10,2" Click="breakPointButton_Click">▼</Button>
+            </StatusBarItem>
+            <StatusBarItem Grid.Column="5">
+                <TextBlock x:Name="breakPointTextBlock"  Foreground="LimeGreen" FontWeight="Bold"  Text="Not Specified!" />
+            </StatusBarItem>
+            <StatusBarItem>
+                <TextBlock Padding="30,0,0,0" Text="Shift(ms):" />
+            </StatusBarItem>
+            <StatusBarItem>
+                <TextBox x:Name="shiftTextBox" Text="0" Width="70"  />
+            </StatusBarItem>
+            <StatusBarItem>
+                <Button x:Name="backwardAllButton" Click="backwardAllButton_Click" >Backward</Button>
+            </StatusBarItem>
+            <StatusBarItem>
+                <Button x:Name="forwardAllButton" Click="forwardAllButton_Click" >Forward</Button>
+            </StatusBarItem>
+            <StatusBarItem Margin="0,0,80,0">
+                |
+            </StatusBarItem>
+            <StatusBarItem>
+                <Button x:Name="speedDownButton" Click="speedDownButton_Click" >Speed Down</Button>
+            </StatusBarItem>
+            <StatusBarItem>
+                <Button x:Name="speedNormalButton" Click="speedNormalButton_Click"  >Speed Normal</Button>
+            </StatusBarItem>
+
+            <StatusBarItem>
+                <Button x:Name="SpeedUpButton" Click="speedUpButton_Click" >Speed Up</Button>
+            </StatusBarItem>
+            <StatusBarItem>
+                <TextBlock x:Name="SpeedRatio" FontFamily="Impact" FontSize="28" Margin="10,0,0,0">1 X</TextBlock>
+            </StatusBarItem>
+
+        </StatusBar>
+
+        <StatusBar Grid.Row="6">
+            <StatusBar.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                    </Grid>
+                </ItemsPanelTemplate>
+            </StatusBar.ItemsPanel>
+            <StatusBarItem>
+                <TextBlock Name="lblProgressStatus">00:00:00.000</TextBlock>
+            </StatusBarItem>
+
+            <StatusBarItem Grid.Column="1" HorizontalContentAlignment="Stretch">
+                <Slider Name="sliProgress" ValueChanged="sliProgress_ValueChanged"  />
+                <!--Thumb.DragStarted="sliProgress_DragStarted"  Thumb.DragCompleted="sliProgress_DragCompleted"-->
+            </StatusBarItem>
+            <StatusBarItem Grid.Column="2">
+                <ProgressBar Name="pbVolume" Width="50" Height="12" Maximum="1" Value="{Binding ElementName=mePlayer, Path=Volume}" />
+            </StatusBarItem>
+        </StatusBar>
+    </Grid>
+</Window>

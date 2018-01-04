@@ -1,0 +1,126 @@
+﻿<Window x:Class="Quran.Settings"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Settings" Height="350" Width="550" WindowStyle="None" ShowInTaskbar="False" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" FontFamily="Tahoma" FlowDirection="RightToLeft" Topmost="True" >
+    <Window.InputBindings>
+        <KeyBinding Key="Escape" Command="ApplicationCommands.Close" />
+        <KeyBinding Key="Enter" Command="ApplicationCommands.Save" />
+    </Window.InputBindings>
+
+    <Window.Resources>
+        <Style TargetType="{x:Type ComboBoxItem}">
+            <Setter Property="Padding" Value="3,5,3,5"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#3a3a3a" />
+        </Style>
+        <Style x:Key="labelStyle" TargetType="{x:Type TextBlock}">
+            <Setter Property="Foreground" Value="#c4c4c4" />
+        </Style>
+    </Window.Resources>
+    <Window.CommandBindings>
+        <CommandBinding Command="ApplicationCommands.Close" Executed="CloseCommandHandler" />
+        <CommandBinding Command="ApplicationCommands.Save" Executed="SaveCommandHandler" />
+    </Window.CommandBindings>
+
+    <Border BorderBrush="#c4c4c4" BorderThickness="1">
+        <DockPanel>
+            <TextBlock DockPanel.Dock="Top" Text="تنظیمات" FontFamily="./fonts/#B Nazanin" FontWeight="Bold" FontSize="16"  Background="#0D7382" Foreground="#fff" Padding="7" Height="30" />
+            <StackPanel DockPanel.Dock="Top"  Background="#c4c4c4" Height="1" />
+
+            <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" FlowDirection="LeftToRight" Height="50" Background="#f1f1f1" >
+                <Button x:Name="cancelButton" Margin="12" Width="70" Command="ApplicationCommands.Close" >انصراف</Button>
+                <Button x:Name="saveButton" Margin="12" Width="70"  Command="ApplicationCommands.Save" >تایید</Button>
+            </StackPanel>
+            <StackPanel DockPanel.Dock="Bottom"  Background="#c4c4c4" Height="1" />
+
+            <Grid Margin="0,30,20,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="20" />
+
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" Grid.Column="0" Text="ترجمه" Padding="0,0,10,0" TextAlignment="Right" VerticalAlignment="Center" />
+                <ComboBox Grid.Row="0" Grid.Column="1" x:Name="comboBoxTranslator" VerticalAlignment="Center" DisplayMemberPath="Name">
+                </ComboBox>
+
+
+                <TextBlock Grid.Row="0" Grid.Column="2" Text="روش پخش" Padding="0,0,10,0" TextAlignment="Right" VerticalAlignment="Center" />
+                <StackPanel Grid.Row="0" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Left" Orientation="Horizontal" Grid.ColumnSpan="2" Margin="98,0,0,0">
+                    <ComboBox x:Name="comboBoxRepeat" Width="80">
+                        <ComboBoxItem>بدون تکرار</ComboBoxItem>
+                        <ComboBoxItem>2 تکرار</ComboBoxItem>
+                        <ComboBoxItem>3 تکرار</ComboBoxItem>
+                        <ComboBoxItem>4 تکرار</ComboBoxItem>
+                        <ComboBoxItem>5 تکرار</ComboBoxItem>
+                    </ComboBox>
+                    <ComboBox x:Name="comboBoxWait" Width="75" Margin="8,0,0,0" >
+                        <ComboBoxItem>بدون مکث</ComboBoxItem>
+                        <ComboBoxItem>5 ثانیه</ComboBoxItem>
+                        <ComboBoxItem>10 ثانیه</ComboBoxItem>
+                    </ComboBox>
+                </StackPanel>
+
+                <TextBlock Grid.Row="2" Grid.Column="0" Text="بزرگنمایی" Padding="0,0,10,0" TextAlignment="Right" VerticalAlignment="Center" />
+                <ComboBox Grid.Row="2" Grid.Column="1" x:Name="comboBoxZoom" VerticalAlignment="Center" DisplayMemberPath="Value" FlowDirection="LeftToRight">
+                </ComboBox>
+
+
+                <TextBlock Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="4" Grid.RowSpan="2" TextAlignment="Center" FontSize="36"  Foreground="#0D7382" Padding="20,0" FontFamily="./fonts/#debussy">
+                        <Hyperlink NavigateUri="http://www.B313.ir/q" RequestNavigate="Hyperlink_RequestNavigate" TextDecorations="{x:Null}" >
+                            <Hyperlink.Style>
+                                <Style TargetType="{x:Type Hyperlink}">
+                                        <Style.Triggers>
+		                                    <Trigger Property="IsMouseOver" Value="True">
+                            			        <Setter Property="Foreground" Value="Red" />
+		                                    </Trigger>
+                                        </Style.Triggers>
+                                    	<Setter Property="Foreground" Value="#0D7382" />
+
+                                    </Style>
+                                </Hyperlink.Style>
+
+                            b313.ir
+                            </Hyperlink>
+                </TextBlock>
+                <!--<TextBlock Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="4" TextAlignment="Center" FontSize="12" Foreground="#a1a1a1" Padding="20,0">نسخه 1.0.3، دی ماه 93</TextBlock>-->
+                <TextBlock Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="4" Grid.RowSpan="2" TextAlignment="Center"  FontFamily="./fonts/#debussy" FontWeight="Thin" FontSize="24" Padding="20,0" Foreground="#6a6a6a" >version 1.0.4</TextBlock>
+                <!--<TextBlock Grid.Column="0" Grid.Row="8" Grid.ColumnSpan="4" TextAlignment="Center" FontSize="12" Foreground="#a1a1a1" Padding="20,0">Email: AhlalQuran@Outlook.com</TextBlock>-->
+                <TextBlock Grid.Column="0" Grid.Row="10" Grid.ColumnSpan="4" TextAlignment="Center" FontSize="10" Foreground="#a1a1a1" Padding="20,0">با سپاس فراوان از دفتر حضرت آیت الله العظمی مکارم شیرازی، سایت tanzil.ir و سایت everyayah.com</TextBlock>
+
+
+                <!--<TextBlock Grid.Row="2" Grid.Column="2" Text="نمایش ترجمه" Padding="0,0,10,0" TextAlignment="Right" VerticalAlignment="Center" />
+                <ComboBox Grid.Row="2" Grid.Column="3" VerticalAlignment="Center">
+                    <ComboBoxItem>زیر هر آیه</ComboBoxItem>
+                    <ComboBoxItem>پايين صفحه</ComboBoxItem>
+                </ComboBox>
+
+                <TextBlock Grid.Row="2" Grid.Column="2" Text="رسم الخط" Padding="0,0,10,0" TextAlignment="Right" VerticalAlignment="Center" />
+                <ComboBox Grid.Row="2" Grid.Column="3" x:Name="comboBoxTextType" VerticalAlignment="Center">
+                    <ComboBoxItem>ساده</ComboBoxItem>
+                    <ComboBoxItem>عثمانی</ComboBoxItem>
+                </ComboBox>
+-->
+
+
+            </Grid>
+        </DockPanel>
+    </Border>
+</Window>

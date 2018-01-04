@@ -1,0 +1,42 @@
+﻿<Window x:Class="Quran.Engine.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Width="1200" Height="700"  WindowStartupLocation="CenterScreen" FontFamily="Tahoma"   >
+    <Window.Resources>
+        <Style TargetType="{x:Type Button}" >
+            <Setter Property="Margin" Value="10" />
+        </Style >
+    </Window.Resources>
+        <Grid FlowDirection="RightToLeft" x:Name="grid">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50" />
+                <RowDefinition Height="50" />
+                <RowDefinition Height="50" />
+                <RowDefinition Height="50" />
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" Name="infoTextBlock"  Padding="20" TextAlignment="Center" Background="WhiteSmoke" >اطلاعات</TextBlock>
+
+            <WrapPanel Grid.Row="1" HorizontalAlignment="Right" Background="#FF0D7382" FlowDirection="RightToLeft" Width="{Binding ElementName=grid, Path=ActualWidth}"  >
+                <Button x:Name="buttonSliceMaker" Padding="5" Margin="10"  Click="buttonSliceMaker_Click"  Content="Slice Maker"  />
+
+                <Button x:Name="buttonSliceMakerTrans" Padding="5" Margin="10" Content="Translation Mapper" Click="buttonSliceMakerTrans_Click"  />
+
+                <Button x:Name="buttonAudioMapper"  Padding="5" Margin="10"  Click="buttonAudioMapper_Click" Content="Audio Export" />
+
+            <Button x:Name="buttonUpdateMeta"  Padding="5" Margin="10"  Click="buttonUpdateMeta_Click" Content="Update Availability" IsEnabled="True" />
+            
+            <Button x:Name="buttonRemoveExtraBesm"  Padding="5" Margin="10"  Click="buttonRemoveExtraBesm_Click" Content="حذف تشدید در بسمه الله سوره تین و قدر" IsEnabled="False" />
+
+            <Button x:Name="buttonGetMakaremTrans"  Padding="5" Margin="10"  Click="buttonGetMakaremTrans_Click"  Content="ساخت فايل ترجمه"  />
+
+            <Button x:Name="buttonRepairTrans"  Padding="5" Margin="10"  Click="buttonRepairTrans_Click"  Content="اصلاح ترجمه" />
+
+
+
+        </WrapPanel>
+
+
+
+
+        </Grid>
+</Window>
